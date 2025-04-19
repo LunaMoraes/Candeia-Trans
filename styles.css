@@ -188,3 +188,16 @@ input:checked ~ .checkmark::after {
 .neon-hover:hover {
   text-shadow: 0 0 10px var(--fire-orange), 0 0 20px var(--fire-orange);
 }
+
+.section-title {
+    text-align: center;
+    background: linear-gradient(to right, #ff6b00, #8b4513);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+    letter-spacing: 0.05em;
+}
