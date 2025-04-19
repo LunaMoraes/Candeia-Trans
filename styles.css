@@ -201,3 +201,33 @@ input:checked ~ .checkmark::after {
     margin: 1.5rem 0;
     letter-spacing: 0.05em;
 }
+
+
+.google-login-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.google-login-btn {
+    background: rgba(255, 107, 53, 0.2);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.google-login-btn:hover {
+    background: rgba(244, 82, 23, 0.6);
+}
+
+.google-login-btn img {
+    width: 24px;
+    height: 24px;
+}

@@ -57,3 +57,34 @@ window.addEventListener('resize', () => {
     canvas.style.height = '100%';
   }
 });
+
+// Configuração do Google Sign-In
+function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential);
+    console.log('Usuário logado:', data);
+    document.querySelector('.google-login-btn').style.display = 'none';
+    document.querySelector('.container').innerHTML += `
+        <div class="welcome-message">
+            Bem-vindo, ${data.given_name}!
+            <button onclick="logout()" class="logout-btn">Sair</button>
+        </div>
+    `;
+}
+
+function logout() {
+    google.accounts.id.disableAutoSelect();
+    document.querySelector('.welcome-message').remove();
+    document.querySelector('.google-login-btn').style.display = 'flex';
+}
+
+window.onload = function() {
+    google.accounts.id.initialize({
+        client_id: 'SEU_CLIENT_ID_AQUI',
+        callback: handleCredentialResponse
+    });
+    
+    google.accounts.id.renderButton(
+        document.querySelector('.google-login-btn'),
+        { theme: 'filled_blue', size: 'large', locale: 'pt_BR' }
+    );
+};
