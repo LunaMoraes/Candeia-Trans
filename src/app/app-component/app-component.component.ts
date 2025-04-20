@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../services/email.service';
 import { environment } from '../../../environments/environment';
 import { listaCRM, listaPoliticos } from './listas';
+import { emailBody } from './emailBody';
 
 declare const google: any;
 declare const gapi: any;
@@ -118,7 +119,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
     const emailContent = {
       to: stateData.emails, // Use the emails from the stateData object
       subject: 'POSICIONAMENTO CONTRA RESOLUÇÃO DO CFM 2427/2025',
-      body: `GRANDE EMAIL ${this.selectedState}`
+      body: `${emailBody}`
     };
 
     this.emailService.sendEmail(
