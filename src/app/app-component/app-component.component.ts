@@ -6,6 +6,9 @@ import { EmailService } from '../services/email.service';
 import { environment } from '../../../environments/environment';
 import { listaCRM, listaPoliticos } from './listas';
 import { emailBody } from './emailBody';
+import { tsParticles } from "@tsparticles/engine";
+import { NgParticlesService, NgxParticlesModule } from "@tsparticles/angular";
+import { loadFirePreset } from "@tsparticles/preset-fire";
 
 declare const google: any;
 declare const gapi: any;
@@ -13,20 +16,33 @@ let tokenClient: any;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, NgxParticlesModule],
   providers: [],
   templateUrl: './app-component.component.html',
   styleUrls: ['./app-component.component.css', '../../styles.css']
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
-  constructor(private emailService: EmailService) {}
+  constructor(private emailService: EmailService, private readonly particlesService: NgParticlesService) {}
+  id = "particles";
   CRMOption = false;
   PoliticosOption = false;
   loggedIn = false;
   selectedState: string | null = null;
   states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.particlesService.init(async () => {});
+    await loadFirePreset(tsParticles);
+    
+    await tsParticles.load({
+      id: this.id,
+      options: {
+        preset: 'fire',
+        background: {
+          color: '#000000'
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -127,7 +143,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       emailContent.subject,
       emailContent.body,
       emailContent.to,
-      emailContent.bcc // Pass the BCC address
+      emailContent.bcc
     ).then(() => {
       alert(`Email enviado com sucesso para representantes de ${this.selectedState}!`);
     }).catch(error => {

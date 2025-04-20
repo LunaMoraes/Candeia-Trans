@@ -4,7 +4,7 @@
 
 <main class="container">
     <h1 class="title">INCOMODE QUEM TENTA<span class="gradient-text"> NOS ELIMINAR</span></h1>
-
+    
     <!-- Replace the Google-rendered button with a custom one -->
     <div class="google-login-container">
         <button class="google-login-btn" (click)="signInAndAuthorize()">
@@ -44,6 +44,6 @@
     <button class="submit-btn pulse" (click)="onSubmit()">INCOMODAR!</button>
 </main>
 
-<div id="particles"></div>
+<ngx-particles [id]="id"></ngx-particles>
 
 <script src="https://accounts.google.com/gsi/client"></script>
