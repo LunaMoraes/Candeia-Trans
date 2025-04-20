@@ -58,4 +58,14 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   selectState(state: string): void {
     this.selectedState = this.selectedState === state ? null : state;
   }
+
+  onSubmit(): void {
+    if (!this.selectedState) {
+      alert('Por favor selecione um estado');
+      return;
+    }
+    
+
+    
+  }
 }
