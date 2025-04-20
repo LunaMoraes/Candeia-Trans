@@ -7,12 +7,14 @@ import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 
 declare const google: any;
-
+declare const gapi: any;
+let tokenClient: any;
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  providers: [],
   templateUrl: './app-component.component.html',
   styleUrls: ['./app-component.component.css', '../../styles.css']
 })
@@ -31,31 +33,63 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       this.initGoogleSignIn();
   }
 
-
-  @HostListener('window:resize')
-  onResize(): void {
-      const canvas = document.querySelector('#particles canvas') as HTMLCanvasElement;
-      if (canvas) {
-          canvas.style.width = '100%';
-          canvas.style.height = '100%';
-      }
-  }
-
   initGoogleSignIn(): void {
-      google.accounts.id.initialize({
-          client_id: environment.PUBLIC_GOOGLE_CLIENT_ID,
-          callback: (response: any) => this.handleCredentialResponse(response)
-      });
-      google.accounts.id.renderButton(
-          document.querySelector('.google-login-btn'),
-          { theme: 'filled_blue', size: 'large', locale: 'pt_BR' }
-      );
+    google.accounts.id.initialize({
+        client_id: environment.PUBLIC_GOOGLE_CLIENT_ID,
+        // This callback receives the ID token
+        callback: (response: any) => this.handleIdTokenResponse(response),
+        // Scope is requested later via tokenClient, so remove it here
+        // scope: 'https://www.googleapis.com/auth/gmail.send'
+    });
+    google.accounts.id.renderButton(
+        document.querySelector('.google-login-btn'),
+        { size: 'large', locale: 'pt_BR' }
+    );
+  }
+  handleIdTokenResponse(response: any): void {
+    const idTokenData: any = jwtDecode(response.credential);
+    console.log('ID Token received, user:', idTokenData.given_name);
+
+    // Initialize the token client *after* getting the ID token
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: environment.PUBLIC_GOOGLE_CLIENT_ID,
+      scope: 'https://www.googleapis.com/auth/gmail.send', // Request Gmail scope here
+      callback: (tokenResponse: any) => {
+        if (tokenResponse && tokenResponse.access_token) {
+          // Set the access token for gapi
+          gapi.client.setToken(tokenResponse);
+          console.log('Access token obtained and set for gapi.');
+          this.loggedIn = true; // Set loggedIn status *after* getting the access token
+          // Update UI or trigger actions if needed
+        } else {
+          console.error('Failed to obtain access token.');
+          alert('Falha ao obter permissão para enviar emails. Tente novamente.');
+          this.loggedIn = false;
+          // Optionally clear gapi token if it exists
+           if (gapi && gapi.client) { gapi.client.setToken(null); }
+        }
+      },
+      error_callback: (error: any) => {
+        console.error('Token client error:', error);
+        alert('Erro durante a autorização do Google. Tente novamente.');
+        this.loggedIn = false;
+         if (gapi && gapi.client) { gapi.client.setToken(null); }
+      }
+    });
+
+    // Now that tokenClient is initialized, request the access token
+    this.requestAccessToken();
   }
 
-  handleCredentialResponse(response: any): void {
-      const data: any = jwtDecode(response.credential);
-      this.loggedIn = true;
-      //this.userName = data.given_name;
+  requestAccessToken(): void {
+    if (!tokenClient) {
+      console.error('Token client not initialized.');
+      alert('Erro interno. Tente fazer login novamente.');
+      return;
+    }
+    // Request the access token. Prompt might be needed if consent wasn't given
+    // Use prompt: 'consent' to force consent screen if needed, '' otherwise
+    tokenClient.requestAccessToken({ prompt: '' });
   }
 
   selectState(state: string): void {
