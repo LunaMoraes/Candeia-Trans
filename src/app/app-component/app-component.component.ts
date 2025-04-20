@@ -96,7 +96,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       alert('Por favor selecione um grupo');
       return;
     }
-    
+
     let stateData: { emails?: any } = {}; // Initialize as an empty object
     // Find the emails for the selected state
     if(this.CRMOption==true){
@@ -116,7 +116,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
     console.log(stateData.emails); // Log the emails for the selected state
 
     const emailContent = {
-      to: 'sovietlunox@gmail.com',//stateData.emails, // Use the emails from the stateData object
+      to: stateData.emails, // Use the emails from the stateData object
       subject: 'POSICIONAMENTO CONTRA RESOLUÇÃO DO CFM 2427/2025',
       body: `GRANDE EMAIL ${this.selectedState}`
     };
