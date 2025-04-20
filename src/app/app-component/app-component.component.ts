@@ -2,7 +2,8 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
-import { tsParticles } from "tsparticles-engine";
+import { Engine, tsParticles } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
 
 declare const google: any;
 
@@ -22,30 +23,34 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      this.initParticles();
+      this.initParticles(tsParticles);
       this.initGoogleSignIn();
   }
 
-  async initParticles(): Promise<void> {
-    await loadFull(await tsParticles.load("particles", {
+  
+  async initParticles(tsParticles: any): Promise<void> {
+    await loadFull(tsParticles);
+    await tsParticles.load("particles", {
       particles: {
         number: { value: 60, density: { enable: true, value_area: 600 } },
         color: { value: ['#ff6b35', '#ff4e00', '#ff8c00'] },
         shape: {
           type: "star",
           options: {
-            polygon: { nb_sides: 5 },
+            star: {
+              sides: 5
+            }
           }
         },
         opacity: {
           value: 0.8,
           random: true,
-          animation: { enable: true, speed: 1, minimumValue: 0.4 }
+          animation: { enable: true, speed: 1, minimumValue: 0.4, sync: false }
         },
         size: {
           value: 4,
           random: true,
-          animation: { enable: true, speed: 4, minimumValue: 0.6 }
+          animation: { enable: true, speed: 4, minimumValue: 0.6, sync: false }
         },
         links: {
           enable: true,
@@ -60,8 +65,8 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
           direction: "none",
           random: true,
           straight: false,
-          outModes: "out",
-          attract: { enable: true, rotate: { x: 1000, y: 2000 } }
+          outMode: "out",
+          attract: { enable: true, rotateX: 1000, rotateY: 2000 }
         }
       },
       interactivity: {
@@ -77,7 +82,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
         }
       },
       retina_detect: true
-    }));
+    });
   }
 
   @HostListener('window:resize')
