@@ -1,18 +1,22 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 
 declare const google: any;
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app-component.component.html',
   styleUrls: ['./app-component.component.css', '../../styles.css']
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
+  CRMOption = false;
+  PoliticosOption = false;
   loggedIn = false;
   selectedState: string | null = null;
   states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
