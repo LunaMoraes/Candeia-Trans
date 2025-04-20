@@ -2,8 +2,6 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
-import { Engine, tsParticles } from "tsparticles-engine";
-import { loadFull } from "tsparticles";
 
 declare const google: any;
 
@@ -12,78 +10,20 @@ declare const google: any;
   standalone: true,
   imports: [CommonModule],
   templateUrl: './app-component.component.html',
-  styleUrls: ['./app-component.component.css']
+  styleUrls: ['./app-component.component.css', '../../styles.css']
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
   loggedIn = false;
-  userName = '';
+  selectedState: string | null = null;
+  states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
   ngOnInit(): void {
-      // nothing to do here for now
   }
 
   ngAfterViewInit(): void {
-      this.initParticles(tsParticles);
       this.initGoogleSignIn();
   }
 
-  
-  async initParticles(tsParticles: any): Promise<void> {
-    await loadFull(tsParticles);
-    await tsParticles.load("particles", {
-      particles: {
-        number: { value: 60, density: { enable: true, value_area: 600 } },
-        color: { value: ['#ff6b35', '#ff4e00', '#ff8c00'] },
-        shape: {
-          type: "star",
-          options: {
-            star: {
-              sides: 5
-            }
-          }
-        },
-        opacity: {
-          value: 0.8,
-          random: true,
-          animation: { enable: true, speed: 1, minimumValue: 0.4, sync: false }
-        },
-        size: {
-          value: 4,
-          random: true,
-          animation: { enable: true, speed: 4, minimumValue: 0.6, sync: false }
-        },
-        links: {
-          enable: true,
-          distance: 180,
-          color: '#ff6b35',
-          opacity: 0.4,
-          width: 1.5
-        },
-        move: {
-          enable: true,
-          speed: 3,
-          direction: "none",
-          random: true,
-          straight: false,
-          outMode: "out",
-          attract: { enable: true, rotateX: 1000, rotateY: 2000 }
-        }
-      },
-      interactivity: {
-        detectsOn: "canvas",
-        events: {
-          onHover: { enable: true, mode: "grab" },
-          onClick: { enable: true, mode: "push" },
-          resize: true
-        },
-        modes: {
-          grab: { distance: 200, links: { opacity: 1 } },
-          push: { quantity: 4 }
-        }
-      },
-      retina_detect: true
-    });
-  }
 
   @HostListener('window:resize')
   onResize(): void {
@@ -107,15 +47,11 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
 
   handleCredentialResponse(response: any): void {
       const data: any = jwtDecode(response.credential);
-      console.log('Usuário logado:', data);
       this.loggedIn = true;
-      this.userName = data.given_name;
+      //this.userName = data.given_name;
   }
 
-  logout(): void {
-      google.accounts.id.disableAutoSelect();
-      this.loggedIn = false;
-      this.userName = '';
-      this.initGoogleSignIn();
+  selectState(state: string): void {
+    this.selectedState = this.selectedState === state ? null : state;
   }
 }

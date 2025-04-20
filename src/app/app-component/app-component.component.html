@@ -14,33 +14,13 @@
 
     <h3 class="section-title">Qual o seu estado?</h3>
     <div class="state-selector">
-        <button class="state-btn" data-state="ac">AC</button>
-        <button class="state-btn" data-state="al">AL</button>
-        <button class="state-btn" data-state="ap">AP</button>
-        <button class="state-btn" data-state="am">AM</button>
-        <button class="state-btn" data-state="ba">BA</button>
-        <button class="state-btn" data-state="ce">CE</button>
-        <button class="state-btn" data-state="df">DF</button>
-        <button class="state-btn" data-state="es">ES</button>
-        <button class="state-btn" data-state="go">GO</button>
-        <button class="state-btn" data-state="ma">MA</button>
-        <button class="state-btn" data-state="mt">MT</button>
-        <button class="state-btn" data-state="ms">MS</button>
-        <button class="state-btn" data-state="mg">MG</button>
-        <button class="state-btn" data-state="pa">PA</button>
-        <button class="state-btn" data-state="pb">PB</button>
-        <button class="state-btn" data-state="pr">PR</button>
-        <button class="state-btn" data-state="pe">PE</button>
-        <button class="state-btn" data-state="pi">PI</button>
-        <button class="state-btn" data-state="rj">RJ</button>
-        <button class="state-btn" data-state="rn">RN</button>
-        <button class="state-btn" data-state="rs">RS</button>
-        <button class="state-btn" data-state="ro">RO</button>
-        <button class="state-btn" data-state="rr">RR</button>
-        <button class="state-btn" data-state="sc">SC</button>
-        <button class="state-btn" data-state="sp">SP</button>
-        <button class="state-btn" data-state="se">SE</button>
-        <button class="state-btn" data-state="to">TO</button>
+        <button *ngFor="let state of states" 
+            class="state-btn" 
+            [class.active]="selectedState === state"
+            (click)="selectState(state)"
+            [attr.data-state]="state">
+          {{ state }}
+        </button>
     </div>
 
     <h3 class="section-title">Quem incomodar?</h3>

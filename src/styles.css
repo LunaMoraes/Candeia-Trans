@@ -96,8 +96,19 @@
     cursor: pointer;
     transition: all 0.3s ease;
   }
+
+  .state-selector {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    margin: 2rem 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fire-orange) transparent;
+  }
   
-  .state-btn:hover {
+  .state-btn:hover,
+.state-btn.active {
     background: var(--fire-orange);
     box-shadow: 0 0 20px var(--fire-orange);
   }
