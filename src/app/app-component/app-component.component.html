@@ -5,11 +5,15 @@
 <main class="container">
     <h1 class="title">INCOMODE QUEM TENTA<span class="gradient-text"> NOS ELIMINAR</span></h1>
 
+    <!-- Replace the Google-rendered button with a custom one -->
     <div class="google-login-container">
-        <button class="google-login-btn">
+        <button class="google-login-btn" (click)="signInAndAuthorize()">
             <img src="https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_32dp.png" alt="Google logo">
-            Entrar com Google
+            <span>Entrar com Google</span>
         </button>
+    </div>
+    <div *ngIf="loggedIn" class="logged-in-message">
+        <p>Você está logado e autorizado a enviar emails.</p>
     </div>
 
     <h3 class="section-title">Qual o seu estado?</h3>

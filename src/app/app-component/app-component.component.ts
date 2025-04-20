@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../services/email.service';
 import { environment } from '../../../environments/environment';
-import { jwtDecode } from 'jwt-decode';
+import { listaCRM, listaPoliticos } from './listas';
 
 declare const google: any;
 declare const gapi: any;
 let tokenClient: any;
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,66 +29,54 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      this.initGoogleSignIn();
+      this.initializeGoogleClients(); 
   }
 
-  initGoogleSignIn(): void {
-    google.accounts.id.initialize({
-        client_id: environment.PUBLIC_GOOGLE_CLIENT_ID,
-        // This callback receives the ID token
-        callback: (response: any) => this.handleIdTokenResponse(response),
-        // Scope is requested later via tokenClient, so remove it here
-        // scope: 'https://www.googleapis.com/auth/gmail.send'
-    });
-    google.accounts.id.renderButton(
-        document.querySelector('.google-login-btn'),
-        { size: 'large', locale: 'pt_BR' }
-    );
-  }
-  handleIdTokenResponse(response: any): void {
-    const idTokenData: any = jwtDecode(response.credential);
-    console.log('ID Token received, user:', idTokenData.given_name);
-
-    // Initialize the token client *after* getting the ID token
+  initializeGoogleClients(): void {
+    // Initialize Google OAuth2 Token Client (Access Token)
+    // This client handles the authorization flow
     tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: environment.PUBLIC_GOOGLE_CLIENT_ID,
-      scope: 'https://www.googleapis.com/auth/gmail.send', // Request Gmail scope here
-      callback: (tokenResponse: any) => {
+      scope: 'https://www.googleapis.com/auth/gmail.send', 
+      callback: (tokenResponse: any) => { 
         if (tokenResponse && tokenResponse.access_token) {
-          // Set the access token for gapi
-          gapi.client.setToken(tokenResponse);
-          console.log('Access token obtained and set for gapi.');
-          this.loggedIn = true; // Set loggedIn status *after* getting the access token
-          // Update UI or trigger actions if needed
+          // Implicit flow returns token directly
+          // Load the GAPI client library and set the token
+          gapi.load('client', () => {
+            gapi.client.setToken(tokenResponse);
+            console.log('Access token obtained and set for gapi. ');
+            this.loggedIn = true; 
+          });
         } else {
+          // Handle errors or lack of token
           console.error('Failed to obtain access token.');
           alert('Falha ao obter permissão para enviar emails. Tente novamente.');
           this.loggedIn = false;
-          // Optionally clear gapi token if it exists
-           if (gapi && gapi.client) { gapi.client.setToken(null); }
+          if (gapi && gapi.client) { gapi.client.setToken(null); }
         }
       },
       error_callback: (error: any) => {
         console.error('Token client error:', error);
-        alert('Erro durante a autorização do Google. Tente novamente.');
+        // More specific error handling could be added here based on error object
+        if (error.type === 'popup_closed') {
+          alert('Você fechou a janela de login do Google antes de concluir.');
+        } else if (error.type === 'popup_failed_to_open') {
+          alert('Não foi possível abrir a janela de login do Google. Verifique se os pop-ups estão bloqueados.');
+        } else {
+          alert('Erro durante a autorização do Google. Tente novamente.');
+        }
         this.loggedIn = false;
-         if (gapi && gapi.client) { gapi.client.setToken(null); }
+        if (gapi && gapi.client) { gapi.client.setToken(null); }
       }
     });
-
-    // Now that tokenClient is initialized, request the access token
-    this.requestAccessToken();
   }
 
-  requestAccessToken(): void {
+  signInAndAuthorize(): void {
     if (!tokenClient) {
       console.error('Token client not initialized.');
-      alert('Erro interno. Tente fazer login novamente.');
       return;
     }
-    // Request the access token. Prompt might be needed if consent wasn't given
-    // Use prompt: 'consent' to force consent screen if needed, '' otherwise
-    tokenClient.requestAccessToken({ prompt: '' });
+    tokenClient.requestAccessToken({ prompt: 'consent' });
   }
 
   selectState(state: string): void {
@@ -97,24 +84,52 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
+    if (!this.loggedIn) {
+      alert('Por favor, faça login com o Google e autorize o envio de emails primeiro.');
+      return;
+    }
     if (!this.selectedState) {
       alert('Por favor selecione um estado');
       return;
     }
+    if (!this.CRMOption==false && !this.PoliticosOption==false) {
+      alert('Por favor selecione um grupo');
+      return;
+    }
     
+    let stateData: { emails?: any } = {}; // Initialize as an empty object
+    // Find the emails for the selected state
+    if(this.CRMOption==true){
+      const crmItem = listaCRM.find(item => item.state === this.selectedState);
+      if (crmItem) {
+        stateData.emails = crmItem.emails; // Assign emails to the object property
+      }
+    }
+    if(this.PoliticosOption==true){
+      const politicosItem = listaPoliticos.find(item => item.state === this.selectedState);
+      if (politicosItem) {
+        if(this.CRMOption==true){stateData.emails += ","+politicosItem.emails;}
+        else{stateData.emails = politicosItem.emails;}
+      }
+    }
+
+    console.log(stateData.emails); // Log the emails for the selected state
+
     const emailContent = {
-      to: 'sovietlunox@gmail.com',
-      subject: 'Novo Estado Selecionado',
-      body: `Estado selecionado: ${this.selectedState}`
+      to: 'sovietlunox@gmail.com',//stateData.emails, // Use the emails from the stateData object
+      subject: 'POSICIONAMENTO CONTRA RESOLUÇÃO DO CFM 2427/2025',
+      body: `GRANDE EMAIL ${this.selectedState}`
     };
 
     this.emailService.sendEmail(
       emailContent.subject,
       emailContent.body,
       emailContent.to
-    ).catch(error => {
+    ).then(() => {
+      alert(`Email enviado com sucesso para os CRMs de ${this.selectedState}!`);
+    }).catch(error => {
       console.error('Erro ao enviar email:', error);
-      alert('Erro ao enviar o email');
+      alert('Erro ao enviar o email. Verifique o console para mais detalhes.');
     });
   }
 }
