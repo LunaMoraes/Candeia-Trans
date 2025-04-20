@@ -11,12 +11,19 @@ export class EmailService {
 
   constructor(private http: HttpClient) {}
 
-  async sendEmail(subject: string, body: string, to: string): Promise<void> {
-    const rawMessage = [
+  async sendEmail(subject: string, body: string, to: string, bcc?: string): Promise<void> {
+    const headers = [
       `To: ${to}`,
-      'Content-Type: text/html; charset=utf-8',
-      `Subject: ${subject}`,
-      '',
+    ];
+    if (bcc) {
+      headers.push(`Bcc: ${bcc}`);
+    }
+    headers.push('Content-Type: text/html; charset=utf-8');
+    headers.push(`Subject: ${subject}`);
+    headers.push(''); // Empty line separates headers from body
+
+    const rawMessage = [
+      ...headers,
       body
     ].join('\n');
 

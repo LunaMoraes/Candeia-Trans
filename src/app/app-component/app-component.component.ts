@@ -117,17 +117,19 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
     console.log(stateData.emails); // Log the emails for the selected state
 
     const emailContent = {
-      to: stateData.emails, // Use the emails from the stateData object
-      subject: 'POSICIONAMENTO CONTRA RESOLUÇÃO DO CFM 2427/2025',
+      to: 'cfm@portalmedico.org.br',
+      bcc: stateData.emails,
+      subject: 'POSICIONAMENTO CONTRA RESOLUCAO DO CFM 2427/2025',
       body: `${emailBody}`
     };
 
     this.emailService.sendEmail(
       emailContent.subject,
       emailContent.body,
-      emailContent.to
+      emailContent.to,
+      emailContent.bcc // Pass the BCC address
     ).then(() => {
-      alert(`Email enviado com sucesso para os CRMs de ${this.selectedState}!`);
+      alert(`Email enviado com sucesso para representantes de ${this.selectedState}!`);
     }).catch(error => {
       console.error('Erro ao enviar email:', error);
       alert('Erro ao enviar o email. Verifique o console para mais detalhes.');
