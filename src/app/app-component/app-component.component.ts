@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { EmailService } from '../services/email.service';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 
@@ -15,6 +17,7 @@ declare const google: any;
   styleUrls: ['./app-component.component.css', '../../styles.css']
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
+  constructor(private emailService: EmailService) {}
   CRMOption = false;
   PoliticosOption = false;
   loggedIn = false;
@@ -65,7 +68,19 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       return;
     }
     
+    const emailContent = {
+      to: 'sovietlunox@gmail.com',
+      subject: 'Novo Estado Selecionado',
+      body: `Estado selecionado: ${this.selectedState}`
+    };
 
-    
+    this.emailService.sendEmail(
+      emailContent.subject,
+      emailContent.body,
+      emailContent.to
+    ).catch(error => {
+      console.error('Erro ao enviar email:', error);
+      alert('Erro ao enviar o email');
+    });
   }
 }
