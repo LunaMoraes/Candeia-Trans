@@ -11,6 +11,19 @@ export class EmailService {
 
   constructor(private http: HttpClient) {}
 
+  generateDraft(subject: string, body: string, to: string, bcc: string){
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
+    const encodedTo = encodeURIComponent(to);
+    const encodedBcc = encodeURIComponent(bcc);
+
+    // Build the Gmail URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedTo}&su=${encodedSubject}&body=${encodedBody}&bcc=${encodedBcc}&tf=1`;
+    window.open(gmailUrl, '_blank');
+
+  }
+
+  
   async sendEmail(subject: string, body: string, to: string, bcc?: string): Promise<void> {
     const headers = [
       `To: ${to}`,

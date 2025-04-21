@@ -101,10 +101,10 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-    if (!this.loggedIn) {
+    /* if (!this.loggedIn) {
       alert('Por favor, faça login com o Google e autorize o envio de emails primeiro.');
       return;
-    }
+    } */
     if (!this.selectedState) {
       alert('Por favor selecione um estado');
       return;
@@ -139,16 +139,11 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       body: `${emailBody}`
     };
 
-    this.emailService.sendEmail(
-      emailContent.subject,
-      emailContent.body,
-      emailContent.to,
+    this.emailService.generateDraft(
+      emailContent.subject, 
+      emailContent.body, 
+      emailContent.to, 
       emailContent.bcc
-    ).then(() => {
-      alert(`Email enviado com sucesso para representantes de ${this.selectedState}!`);
-    }).catch(error => {
-      console.error('Erro ao enviar email:', error);
-      alert('Erro ao enviar o email. Verifique o console para mais detalhes.');
-    });
+    )
   }
 }
