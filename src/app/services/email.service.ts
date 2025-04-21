@@ -19,11 +19,12 @@ export class EmailService {
 
     // Build the Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedTo}&su=${encodedSubject}&body=${encodedBody}&bcc=${encodedBcc}&tf=1`;
+    console.log(gmailUrl); // Log the URL for debugging
     window.open(gmailUrl, '_blank');
 
   }
 
-  
+
   async sendEmail(subject: string, body: string, to: string, bcc?: string): Promise<void> {
     const headers = [
       `To: ${to}`,
