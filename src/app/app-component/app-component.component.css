@@ -102,3 +102,18 @@
   background: var(--golden-glow);
   color: var(--dark-coffee);
 }
+
+/* Footer text below submit button */
+.footer-text {
+  display: block;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  text-align: left;
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+/* Main container padding */
+.container {
+  padding: 0 1.5rem;
+}
