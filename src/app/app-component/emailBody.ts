@@ -1,6 +1,6 @@
 export const emailBody = [
-    `Vossas excelências, senadores e deputados. 
-Drs representantes de seus respectivos conselhos.
+    `À Vossas Excelências, Senadores e Deputados do Congresso Nacional. 
+Doutores e profissionais de saúde, dirigentes e representantes de seus respectivos conselhos de classe.
 
 
 Solicitamos respeitosamente ações e intervenções acerca da nota técnica 2.427/2025 do CFM.
@@ -9,7 +9,7 @@ Solicitamos respeitosamente ações e intervenções acerca da nota técnica 2.4
 A comunidade trans brasileira, historicamente marginalizada e violentada pelo Estado e pela sociedade, NÃO ACEITARÁ MAIS UM ATAQUE AOS SEUS DIREITOS FUNDAMENTAIS. A recente resolução do Conselho Federal de Medicina (CFM), que restringe o acesso de adolescentes trans a tratamentos médicos adequados e baseados em evidências científicas, é mais um capítulo de um projeto sistemático de desmonte das políticas públicas conquistadas após décadas de luta.
 
 
-O Posicionamento técnico da sociedade brasileira de medicina de família nos mostra a real intenção da nota técnica 2427/2025 CFM, que não é pautada em evidências científicas robustas e globalmente aceitas, servindo para mostrar o papel ideológico que o conselho assumiu tentando desmontar um programa de cuidado que graças à luta da comunidade LGBTQIAP+ em especial trans e travestis tem conseguido lentos mas importantes avanços. Esta nota é um enorme retrocesso em tudo construído pela comunidade e terá impacto direto na saúde mental e física da população Trans
+O Posicionamento técnico da sociedade brasileira de medicina de família nos mostra a real intenção da nota técnica 2427/2025 CFM, que não é pautada em evidências científicas robustas e globalmente aceitas, servindo para mostrar o papel ideológico que o conselho assumiu tentando desmontar um programa de cuidado que graças à luta da comunidade LGBTQIAP+ em especial trans e travestis têm conseguido lentos mas importantes avanços. Esta nota é um enorme retrocesso em tudo construído pela comunidade e terá impacto direto na saúde mental e física da população Trans
 
 
 Entre as mudanças mais preocupantes, está a proibição do uso de bloqueadores hormonais para crianças e adolescentes com variabilidade de gênero ou incongruência ao gênero designado no nascimento — uma intervenção que, quando bem indicada e acompanhada por equipes multiprofissionais, é considerada segura e eficaz para reduzir sofrimento psíquico e prevenir consequências irreversíveis da puberdade indesejada. Resolução também eleva a idade mínima para cirurgias de afirmação de gênero com efeitos esterilizantes para 21 anos, negando o direito de autodeterminação de pessoas trans adultas. 
