@@ -109,7 +109,7 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
       alert('Por favor selecione um estado');
       return;
     }
-    if (!this.CRMOption==false && !this.PoliticosOption==false) {
+    if (this.CRMOption==false && this.PoliticosOption==false) {
       alert('Por favor selecione um grupo');
       return;
     }
