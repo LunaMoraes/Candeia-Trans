@@ -20,8 +20,15 @@ export class EmailService {
     // Build the Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedTo}&su=${encodedSubject}&body=${encodedBody}&bcc=${encodedBcc}&tf=1`;
     console.log(gmailUrl); // Log the URL for debugging
-    window.open(gmailUrl, '_blank');
 
+    // Open in Gmail app on mobile via mailto, otherwise open web Gmail draft
+    const isMobile = /Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+    if (isMobile) {
+      const mailtoLink = `mailto:${to}?subject=${encodedSubject}&body=${encodedBody}&bcc=${encodedBcc}`;
+      window.open(mailtoLink);
+    } else {
+      window.open(gmailUrl, '_blank');
+    }
   }
 
 
