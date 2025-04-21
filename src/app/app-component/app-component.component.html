@@ -45,13 +45,13 @@
     </div>
 
     <button class="submit-btn pulse" (click)="onSubmit()">INCOMODAR!</button>
-
+    <p>esse site não faz disparos em massa, nós apenas compilamos as informações públicas de contato das pessoas desejadas por estado para facilitar o contato da população geral com seus políticos e provemos uma base argumentativa estruturada com aspectos técnicos para adequadamente transmitir a ideia</p>
     <!-- Modal -->
     <div class="modal" *ngIf="showModal">
         <div class="modal-content">
             <span class="close" (click)="closeModal()">&times;</span>
             <h2>Entenda a situação</h2>
-            <p>No dia XX de abril de 2025, o Conselho Federal de medicina tomou a decisão 2427/2025 que afeta diretamente todas as pessoas trans do país.</p>
+            <p>No dia 08 de abril de 2025, o Conselho Federal de medicina tomou a decisão 2427/2025 que afeta diretamente todas as pessoas trans do país.</p>
             <p>Os impactos dessa decisão são devastadores e incluem:</p>
             <ul>
                 <li>Aumento da idade mínima para fazer terapia hormonal para 18 anos.</li>
@@ -59,7 +59,10 @@
                 <li>Aumento na burocracia para se conseguir atendimento no sistema de saúde público para transição hormonal, praticamente impossibilitando novos atendimentos.</li>
             </ul>
             <p>É essencial que as pessoas saiam as ruas essa semana para lutar contra essa medida. Atos nacionais foram convocados dia 24 e 25 por todo o Brasil. Para saber mais sobre as convocações, entre em contato com organizações sociais de sua região ou entre em nosso discord abaixo para falar conosco diretamente.</p>
-            <a href="https://discord.gg/VdWNBmcVGY"> </a>
+            <div class="modal-links">
+              <a href="https://discord.gg/VdWNBmcVGY" target="_blank" rel="noopener noreferrer" class="modal-btn discord-btn">Discord!</a>
+              <a href="#" class="modal-btn nota-btn">Nota de repúdio!</a>
+            </div>
         </div>
     </div>
 </main>

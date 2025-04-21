@@ -61,3 +61,44 @@
   cursor: pointer;
   color: #333;
 }
+
+/* Links container in modal */
+.modal-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Common button style for modal links */
+.modal-btn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Discord button styling */
+.discord-btn {
+  background: var(--fire-orange);
+  color: white;
+  border: 1px solid var(--ember);
+}
+.discord-btn:hover {
+  background: var(--ember);
+  box-shadow: 0 0 10px var(--fire-orange);
+}
+
+/* Nota de repúdio button styling */
+.nota-btn {
+  background: transparent;
+  color: var(--golden-glow);
+  border: 1px solid var(--golden-glow);
+}
+.nota-btn:hover {
+  background: var(--golden-glow);
+  color: var(--dark-coffee);
+}
