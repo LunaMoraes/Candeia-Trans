@@ -32,13 +32,7 @@ e afirmação de gênero apenas para maiores de 21 anos;
 4 A participação efetiva de pessoas trans e travestis na elaboração de políticas públicas que afetam essa comunidade.
 
 
-Endossam este pedido:
-Coletivo Chama
-IBRAT-SP
-Sport Clube T Mosqueteiros
-Ambulatório Transcender - Campinas/SP
-ABRAI (Associação Brasileira Intersexo)
-Mães pela Diversidade 
-Associação Famílias e Resistência - AFeR
+Endossam este pedido e formulam a nota de repúdio abaixo os coletivos contidos na nota:
+https://docs.google.com/document/d/14jtri9yLloOa0DZcPpT-UGewoxzURwKp/edit?usp=sharing&ouid=102982115135920007639&rtpof=true&sd=true
 `
 ]
