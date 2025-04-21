@@ -6,6 +6,7 @@
 
 <main class="container">
     <h1 class="title">INCOMODE QUEM TENTA<span class="gradient-text"> NOS ELIMINAR</span></h1>
+    <button class="info-btn" (click)="openModal()">Entenda a situação</button>
     
     <!-- Replace the Google-rendered button with a custom one -->
     <!-- <div class="google-login-container">
@@ -44,6 +45,23 @@
     </div>
 
     <button class="submit-btn pulse" (click)="onSubmit()">INCOMODAR!</button>
+
+    <!-- Modal -->
+    <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h2>Entenda a situação</h2>
+            <p>No dia XX de abril de 2025, o Conselho Federal de medicina tomou a decisão 2427/2025 que afeta diretamente todas as pessoas trans do país.</p>
+            <p>Os impactos dessa decisão são devastadores e incluem:</p>
+            <ul>
+                <li>Aumento da idade mínima para fazer terapia hormonal para 18 anos.</li>
+                <li>Aumento da idade mínima para fazer cirurgias relacionadas a transição de gênero para 21 anos.</li>
+                <li>Aumento na burocracia para se conseguir atendimento no sistema de saúde público para transição hormonal, praticamente impossibilitando novos atendimentos.</li>
+            </ul>
+            <p>É essencial que as pessoas saiam as ruas essa semana para lutar contra essa medida. Atos nacionais foram convocados dia 24 e 25 por todo o Brasil. Para saber mais sobre as convocações, entre em contato com organizações sociais de sua região ou entre em nosso discord abaixo para falar conosco diretamente.</p>
+            <a href="https://discord.gg/VdWNBmcVGY"> </a>
+        </div>
+    </div>
 </main>
 
 <ngx-particles [id]="id"></ngx-particles>

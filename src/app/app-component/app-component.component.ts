@@ -22,6 +22,16 @@ let tokenClient: any;
   styleUrls: ['./app-component.component.css', '../../styles.css']
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
+  showModal = false;
+
+  openModal(): void {
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
   constructor(private emailService: EmailService, private readonly particlesService: NgParticlesService) {}
   id = "particles";
   CRMOption = false;
