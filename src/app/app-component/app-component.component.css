@@ -30,6 +30,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  
 }
 
 /* Modal content container */
@@ -43,6 +44,7 @@
   width: 90%;
   position: relative;
   text-align: center;
+  padding-bottom: 10px;
 }
 
 /* Only affect modal paragraphs and lists */
