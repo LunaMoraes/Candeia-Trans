@@ -23,13 +23,18 @@ let tokenClient: any;
 })
 export class AppComponentComponent implements OnInit, AfterViewInit {
   showModal = false;
-
+  showFormModal = false;
   openModal(): void {
     this.showModal = true;
   }
-
+  openFormModal(): void {
+    this.showFormModal = true;
+  }
   closeModal(): void {
     this.showModal = false;
+  }
+  closeFormModal(): void {
+    this.showFormModal = false;
   }
 
   constructor(private emailService: EmailService, private readonly particlesService: NgParticlesService) {}

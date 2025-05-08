@@ -8,7 +8,7 @@
 <main class="container">
     <h1 class="title">INCOMODE QUEM TENTA<span class="gradient-text"> NOS ELIMINAR</span></h1>
     <button class="info-btn" (click)="openModal()">Entenda a situação</button>
-    
+    <button class="info-btn" (click)="openFormModal()">CHAMA PRA RUA!</button>
     <!-- Replace the Google-rendered button with a custom one -->
     <!-- <div class="google-login-container">
         <button class="google-login-btn" (click)="signInAndAuthorize()">
@@ -64,6 +64,23 @@
               <a href="https://discord.gg/VdWNBmcVGY" target="_blank" rel="noopener noreferrer" class="modal-btn discord-btn">Discord!</a>
               <a href="https://chng.it/8q8hr8YKS5" class="modal-btn nota-btn">Nota de repúdio!</a>
             </div>
+        </div>
+    </div>
+    <div class="modal" *ngIf="showFormModal">
+        <div class="modal-content">
+            <span class="close" (click)="closeFormModal()">&times;</span>
+            <h2>CHAMA PRA RUA</h2>
+            <p>Esse é o MVP da nossa plataforma para organização de manifestações, o "Chama pra Rua", nosso objetivo é testar uma estrutura organizacional que possa ser replicada para diversas lutas que vão além da nossa pauta atual, isso vai imensamente auxiliar na construção de atos e movimentos, para que possamos recrutar cada vez mais pessoas para nossa luta contra a LGBTQIAP+ fobia e todas as pautas que também tangenciam a nossa luta enquanto população trabalhadora que reivindica seus direitos, por saúde, por respeito, por educação, coisas que vão muito além do que a nossa luta atual contra o CFM. Precisamos unir todos, todas e todes em um grande grupo unido para pautarmos coisas que tem impacto direto em nossas vidas. Chama geral pra rua!</p>
+            <p>Esse é o formulário para quem deseja participar dos grupos municipais, quem quiser APENAS participar dos atos e não organizar diretamente preencha este formulário também pois usaremos isso para montar os grupos de whatsapp/telegram de comunicação em cada município (os organizadores do município votarão qual meio de comunicação mais adequado)</p>
+            <div class="modal-links">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfycwQNi89BKNlEjWTeabMT-kIiMSMCplYW2mwQQoHYThKOAA/viewform?usp=sharing" class="modal-btn nota-btn">Form municipal</a>
+            </div>
+            <p>Este é o formulário para quem deseja compor na militância a nível nacional, compondo uma estrutura entre muitos coletivos com o objetivo de integrar os movimentos LGBTQIAPN+ de todo o brasil em uma frente que ajudará os municípios, podendo trazer a opinião de todes e termos espaços coletivos para a fala. Neste formulário você pode escolher em qual área quer estar nas composições nacionais - Na área de integração, de comunicação ou de relações externas, a função de cada comissão está melhor explicada no formulário e foi deliberada na reunião do dia 02/05.</p>
+            <div class="modal-links">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwtW1aSgKOY01xiTRgwAdflm6d9s-xQHcDzrDndkDEheKhYQ/viewform?usp=sharing" class="modal-btn nota-btn">Form nacional</a>
+            </div>
+           
+            
         </div>
     </div>
 </main>
