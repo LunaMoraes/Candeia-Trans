@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../services/email.service';
 import { environment } from '../../../environments/environment';
-import { listaCRM, listaPoliticos } from './listas';
+import { listaCRM, listaPoliticos, listaSaoCarlos } from './listas';
 import { emailBody } from './emailBody';
 import { tsParticles } from "@tsparticles/engine";
 import { NgParticlesService, NgxParticlesModule } from "@tsparticles/angular";
@@ -35,6 +35,27 @@ export class AppComponentComponent implements OnInit, AfterViewInit {
   }
   closeFormModal(): void {
     this.showFormModal = false;
+  }
+  openSaoCarlos(): void {
+    let stateData: { emails?: any } = {}; // Initialize as an empty object
+
+    stateData.emails = listaSaoCarlos;
+
+    console.log(stateData.emails); // Log the emails for the selected state
+
+    const emailContent = {
+      to: 'cfm@portalmedico.org.br',
+      bcc: stateData.emails,
+      subject: 'POSICIONAMENTO CONTRA RESOLUCAO DO CFM 2427/2025',
+      body: `${emailBody}`
+    };
+
+    this.emailService.generateDraft(
+      emailContent.subject, 
+      emailContent.body, 
+      emailContent.to, 
+      emailContent.bcc
+    )
   }
 
   constructor(private emailService: EmailService, private readonly particlesService: NgParticlesService) {}
