@@ -11,13 +11,13 @@
     <button class="info-btn" (click)="openFormModal()">CHAMA PRA RUA!</button>
     <button class="info-btn" (click)="openSaoCarlos()">Versão para São Carlos</button>
     
-    <!-- Replace the Google-rendered button with a custom one -->
-    <!-- <div class="google-login-container">
+    
+    <div class="google-login-container">
         <button class="google-login-btn" (click)="signInAndAuthorize()">
             <img src="https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_32dp.png" alt="Google logo">
             <span>Entrar com Google</span>
         </button>
-    </div> -->
+    </div>
     <div *ngIf="loggedIn" class="logged-in-message">
         <p>Você está logado e autorizado a enviar emails.</p>
     </div>
